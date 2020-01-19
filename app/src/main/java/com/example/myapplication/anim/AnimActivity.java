@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
 import android.animation.FloatEvaluator;
+import android.animation.LayoutTransition;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.animation.TypeEvaluator;
@@ -17,17 +18,25 @@ import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.view.animation.LinearInterpolator;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
 
 import static android.animation.ValueAnimator.REVERSE;
+import static android.view.View.VISIBLE;
 
 public class AnimActivity extends AppCompatActivity {
     ObjectAnimator objectAnimator;
+    LinearLayout layout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -139,8 +148,65 @@ public class AnimActivity extends AppCompatActivity {
                 tv_ViewPropertyAnimator.animate().setDuration(3000).alpha(0.5f).rotationY(1.0f).x(1000f).start();
             }
         });
+        layout = findViewById(R.id.llLayoutAnimator);
+        final TextView textView1 = findViewById(R.id.tv_LayoutAnimator);
+//        final LayoutTransition mTransitioner = new LayoutTransition();
+//        /**
+//         * 添加View时过渡动画效果
+//         */
+//        ObjectAnimator addAnimator = ObjectAnimator.ofFloat(null, "rotationY", 0, 90,0).
+//                setDuration(mTransitioner.getDuration(LayoutTransition.APPEARING));
+//        mTransitioner.setAnimator(LayoutTransition.APPEARING, addAnimator);
+//
+//        /**
+//         * 移除View时过渡动画效果
+//         */
+//        ObjectAnimator removeAnimator = ObjectAnimator.ofFloat(null, "rotationX", 0, -90, 0).
+//                setDuration(mTransitioner.getDuration(LayoutTransition.DISAPPEARING));
+//        mTransitioner.setAnimator(LayoutTransition.DISAPPEARING, removeAnimator);
+//
+//        /**
+//         * view 动画改变时，布局中的每个子view动画的时间间隔
+//         */
+//        mTransitioner.setStagger(LayoutTransition.CHANGE_APPEARING, 30);
+//        mTransitioner.setStagger(LayoutTransition.CHANGE_DISAPPEARING, 30);
+//
+//        layout.setLayoutTransition(mTransitioner);
+//        layout.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                layout.clearAnimation();
+//                layout.animate().alpha(0.5f).rotation(360).scaleX(1f).scaleY(1f)
+//                        .translationX(50).translationY(250).setDuration(5000);
+//                if (i<=5)
+//                    addView();
+//                else removeView();
+//            }
+//        });
+//通过加载XML动画设置文件来创建一个Animation对象；
+        Animation animation= AnimationUtils.loadAnimation(this, R.anim.slide_in_left);   //得到一个LayoutAnimationController对象；
+        LayoutAnimationController controller = new LayoutAnimationController(animation);   //设置控件显示的顺序；
+        controller.setOrder(LayoutAnimationController.ORDER_REVERSE);   //设置控件显示间隔时间；
+        controller.setDelay(0.5f);   //为ListView设置LayoutAnimationController属性；
+        layout.setLayoutAnimation(controller);
+        layout.startLayoutAnimation();
     }
 
+    int i=0;
+    public void addView() {
+        i++;
+        Button button = new Button(this);
+        button.setText("布局动画_" + i);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        layout.addView(button, Math.min(0, layout.getChildCount()), params);
+    }
+
+    public void removeView() {
+        i--;
+        if (i > 0)
+            layout.removeViewAt(1);
+    }
     private void startAnimWithEvaluator(final TextView view) {
         ValueAnimator valueAnimator = new ValueAnimator();
         valueAnimator.setDuration(3000);

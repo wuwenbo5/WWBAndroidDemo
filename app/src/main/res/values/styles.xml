@@ -10,8 +10,8 @@
 	</style>
 	<!-- 使用style方式定义activity切换动画 -->
 	<style name="activityAnim">
-		<item name="android:activityOpenEnterAnimation">@anim/slide_in_left</item>
-		<item name="android:activityOpenExitAnimation">@anim/slide_out_right</item>
+<!--		<item name="android:activityOpenEnterAnimation">@anim/slide_in_left</item>-->
+<!--		<item name="android:activityOpenExitAnimation">@anim/slide_out_right</item>-->
 	</style>
 	<style name="AppTheme.NoActionBar">
 		<item name="windowActionBar">false</item>
