@@ -2,8 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		xmlns:app="http://schemas.android.com/apk/res-auto"
 		xmlns:tools="http://schemas.android.com/tools"
+		android:id="@+id/inner_layout"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
+		android:background="@color/light_yellow"
 		app:layout_behavior="@string/appbar_scrolling_view_behavior"
 		tools:context=".anim.AnimActivity"
 		tools:showIn="@layout/activity_anim">
@@ -14,28 +16,31 @@
 			app:layout_constraintLeft_toLeftOf="parent"
 			app:layout_constraintRight_toRightOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
+			android:background="?android:attr/selectableItemBackground"
 			android:text="Animation View"
 			/>
 	<TextView
-		android:id="@+id/tv_animation_activity"
+			android:id="@+id/tv_animation_activity"
 			style="@style/CommonTextStyle"
 			app:layout_constraintLeft_toLeftOf="parent"
 			app:layout_constraintRight_toRightOf="parent"
 			app:layout_constraintTop_toBottomOf="@id/tv_animation_view"
+			android:background="?android:attr/selectableItemBackgroundBorderless"
 			android:text="Animation activity"
 			/>
 
 	<TextView
-		android:id="@+id/tv_animation_value"
+			android:id="@+id/tv_animation_value"
 			style="@style/CommonTextStyle"
 			app:layout_constraintLeft_toLeftOf="parent"
 			app:layout_constraintRight_toRightOf="parent"
 			app:layout_constraintTop_toBottomOf="@id/tv_animation_activity"
+			android:background="@drawable/custom_ripple"
 			android:text="Animation ValueAnimator "
 			/>
 
 	<TextView
-		android:id="@+id/tv_animation_set"
+			android:id="@+id/tv_animation_set"
 			style="@style/CommonTextStyle"
 			app:layout_constraintLeft_toLeftOf="parent"
 			app:layout_constraintRight_toRightOf="parent"
@@ -44,7 +49,7 @@
 			/>
 
 	<TextView
-		android:id="@+id/tv_PropertyValuesHolder"
+			android:id="@+id/tv_PropertyValuesHolder"
 			style="@style/CommonTextStyle"
 			app:layout_constraintLeft_toLeftOf="parent"
 			app:layout_constraintRight_toRightOf="parent"
@@ -52,7 +57,7 @@
 			android:text="Animation PropertyValuesHolder "
 			/>
 	<TextView
-		android:id="@+id/tv_Evaluators"
+			android:id="@+id/tv_Evaluators"
 			style="@style/CommonTextStyle"
 			app:layout_constraintLeft_toLeftOf="parent"
 			app:layout_constraintRight_toRightOf="parent"
@@ -60,7 +65,7 @@
 			android:text="Animation Evaluators  "
 			/>
 	<TextView
-		android:id="@+id/tv_Interpolators"
+			android:id="@+id/tv_Interpolators"
 			style="@style/CommonTextStyle"
 			app:layout_constraintLeft_toLeftOf="parent"
 			app:layout_constraintRight_toRightOf="parent"
@@ -69,7 +74,7 @@
 			/>
 
 	<TextView
-		android:id="@+id/tv_ViewPropertyAnimator"
+			android:id="@+id/tv_ViewPropertyAnimator"
 			style="@style/CommonTextStyle"
 			app:layout_constraintLeft_toLeftOf="parent"
 			app:layout_constraintRight_toRightOf="parent"
@@ -77,7 +82,7 @@
 			android:text="Animation ViewPropertyAnimator "
 			/>
 	<LinearLayout
-		android:id="@+id/llLayoutAnimator"
+			android:id="@+id/llLayoutAnimator"
 			android:layout_width="180dp"
 			android:layout_height="80dp"
 			android:orientation="vertical"

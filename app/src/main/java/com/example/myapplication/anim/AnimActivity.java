@@ -14,10 +14,12 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
@@ -30,19 +32,31 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import static android.animation.ValueAnimator.REVERSE;
-import static android.view.View.VISIBLE;
 
 public class AnimActivity extends AppCompatActivity {
     ObjectAnimator objectAnimator;
     LinearLayout layout;
+    FloatingActionButton fab;
+
+    ConstraintLayout mConstraintLayout ;
+    boolean flag = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anim);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        mConstraintLayout = findViewById(R.id.inner_layout);
+        fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                launchRevealAnimation();
+            }
+        });
         TextView textView = findViewById(R.id.tv_animation_view);
 //        objectAnimator = ObjectAnimator.ofFloat(textView,"scaleY",0,1);
         objectAnimator = ObjectAnimator.ofFloat(textView, "rotationY", 0.0f, 360.0f);
@@ -252,5 +266,43 @@ public class AnimActivity extends AppCompatActivity {
             }
         });
     }
+    private void launchRevealAnimation() {
+        //求出第2个和第3个参数
+        int[] vLocation = new int[2];
+        fab.getLocationInWindow(vLocation);
+        int centerX = vLocation[0] + fab.getWidth() / 2;
+        int centerY = vLocation[1] + fab.getHeight() / 2;
 
+        //求出要揭露 View 的对角线，来作为扩散圆的最大半径
+        int hypotenuse = (int) Math.hypot(mConstraintLayout.getWidth(), mConstraintLayout.getHeight());
+
+        if (flag) {//隐藏 揭露对象
+            Animator circularReveal = ViewAnimationUtils.createCircularReveal(mConstraintLayout, centerX, centerY, hypotenuse, 0);
+            circularReveal.setDuration(2000);
+            circularReveal.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {}
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mConstraintLayout.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {}
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {}
+            });
+            circularReveal.start();
+            flag = false;
+        } else {//显示 揭露对象
+            Animator circularReveal = ViewAnimationUtils.createCircularReveal(mConstraintLayout, centerX, centerY, 0, hypotenuse);
+            circularReveal.setDuration(2000);
+            //注意：这里显示 mPuppet 调用并没有在监听方法里，并且是在动画开始前调用。
+            mConstraintLayout.setVisibility(View.VISIBLE);
+            circularReveal.start();
+            flag = true;
+        }
+    }
 }
