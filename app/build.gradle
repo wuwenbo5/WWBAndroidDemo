@@ -4,6 +4,8 @@ apply plugin: 'android-aspectjx'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+//apply plugin: 'sp.autoservice'
+
 /*********/
 
 
@@ -40,4 +42,8 @@ dependencies {
     implementation 'com.google.dagger:dagger:2.14.1'
     kapt 'com.google.dagger:dagger-compiler:2.14.1'
 
+//    implementation project(':module_a')
+//    implementation project(':module_b')
+
+//    implementation 'chao.java.tools:servicepool-android:1.1.0' // servicepool的Android支持
 }

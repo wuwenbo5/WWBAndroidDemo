@@ -7,7 +7,7 @@ import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
-import com.example.myapplication.enity.Animal
+import com.example.myapplication.anim.AnimActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() ,View.OnClickListener{
@@ -23,8 +23,8 @@ class MainActivity : AppCompatActivity() ,View.OnClickListener{
             R.id.btn_two -> {
                 Log.e(TAG,"--------------click btn two")
             }
-            R.id.message -> {
-
+            R.id.btn_object_anim -> {
+                startActivity( Intent(application, AnimActivity::class.java))
             }
         }
     }
@@ -58,5 +58,6 @@ class MainActivity : AppCompatActivity() ,View.OnClickListener{
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
         btn_one.setOnClickListener(this)
         btn_two.setOnClickListener (this)
+        btn_object_anim.setOnClickListener (this)
     }
 }
