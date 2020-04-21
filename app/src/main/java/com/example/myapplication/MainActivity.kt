@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() ,View.OnClickListener{
         false
     }
 
+//    val num = 1_000_00_99
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -56,6 +57,9 @@ class MainActivity : AppCompatActivity() ,View.OnClickListener{
 
         textMessage = findViewById(R.id.message)
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+
+//        Log.e("num","----- value  =  $num")
+
         btn_one.setOnClickListener(this)
         btn_two.setOnClickListener (this)
         btn_object_anim.setOnClickListener (this)
